@@ -1,0 +1,71 @@
+Logfire project URL: https://logfire-us.pydantic.dev/gweakliem/otter-maroon
+Traceback (most recent call last):
+  File "/Users/gordon/git/otter-maroon/horoscope.py", line 135, in <module>
+    newspaper = star_news_agent.run_sync(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/gordon/git/otter-maroon/.venv/lib/python3.12/site-packages/pydantic_ai/agent.py", line 887, in run_sync
+    return get_event_loop().run_until_complete(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/gordon/.local/share/uv/python/cpython-3.12.8-macos-aarch64-none/lib/python3.12/asyncio/base_events.py", line 686, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/Users/gordon/git/otter-maroon/.venv/lib/python3.12/site-packages/pydantic_ai/agent.py", line 490, in run
+    async for _ in agent_run:
+  File "/Users/gordon/git/otter-maroon/.venv/lib/python3.12/site-packages/pydantic_ai/agent.py", line 1974, in __anext__
+    next_node = await self._graph_run.__anext__()
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/gordon/git/otter-maroon/.venv/lib/python3.12/site-packages/pydantic_graph/graph.py", line 809, in __anext__
+    return await self.next(self._next_node)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/gordon/git/otter-maroon/.venv/lib/python3.12/site-packages/pydantic_graph/graph.py", line 782, in next
+    self._next_node = await node.run(ctx)
+                      ^^^^^^^^^^^^^^^^^^^
+  File "/Users/gordon/git/otter-maroon/.venv/lib/python3.12/site-packages/pydantic_ai/_agent_graph.py", line 445, in run
+    async with self.stream(ctx):
+               ^^^^^^^^^^^^^^^^
+  File "/Users/gordon/.local/share/uv/python/cpython-3.12.8-macos-aarch64-none/lib/python3.12/contextlib.py", line 217, in __aexit__
+    await anext(self.gen)
+  File "/Users/gordon/git/otter-maroon/.venv/lib/python3.12/site-packages/pydantic_ai/_agent_graph.py", line 459, in stream
+    async for _event in stream:
+  File "/Users/gordon/git/otter-maroon/.venv/lib/python3.12/site-packages/pydantic_ai/_agent_graph.py", line 514, in _run_stream
+    async for event in self._events_iterator:
+  File "/Users/gordon/git/otter-maroon/.venv/lib/python3.12/site-packages/pydantic_ai/_agent_graph.py", line 492, in _run_stream
+    async for event in self._handle_tool_calls(ctx, tool_calls):
+  File "/Users/gordon/git/otter-maroon/.venv/lib/python3.12/site-packages/pydantic_ai/_agent_graph.py", line 545, in _handle_tool_calls
+    async for event in process_function_tools(
+  File "/Users/gordon/git/otter-maroon/.venv/lib/python3.12/site-packages/pydantic_ai/_agent_graph.py", line 737, in process_function_tools
+    result = task.result()
+             ^^^^^^^^^^^^^
+  File "/Users/gordon/git/otter-maroon/.venv/lib/python3.12/site-packages/pydantic_ai/tools.py", line 365, in run
+    response = await self._run(message, run_context)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/gordon/git/otter-maroon/.venv/lib/python3.12/site-packages/pydantic_ai/tools.py", line 395, in _run
+    response_content = await self.function_schema.call(args_dict, ctx)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/gordon/git/otter-maroon/.venv/lib/python3.12/site-packages/pydantic_ai/_function_schema.py", line 52, in call
+    return await function(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/gordon/git/otter-maroon/horoscope.py", line 115, in get_news
+    async with session.get(endpoint, params=params) as response:
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/gordon/git/otter-maroon/.venv/lib/python3.12/site-packages/aiohttp/client.py", line 1482, in __aenter__
+    self._resp: _RetType = await self._coro
+                           ^^^^^^^^^^^^^^^^
+  File "/Users/gordon/git/otter-maroon/.venv/lib/python3.12/site-packages/aiohttp/client.py", line 693, in _request
+    req = self._request_class(
+          ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/gordon/git/otter-maroon/.venv/lib/python3.12/site-packages/aiohttp/client_reqrep.py", line 866, in __init__
+    url = url.extend_query(params)
+          ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/gordon/git/otter-maroon/.venv/lib/python3.12/site-packages/yarl/_url.py", line 1206, in extend_query
+    if not (new_query := get_str_query(*args, **kwargs)):
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/gordon/git/otter-maroon/.venv/lib/python3.12/site-packages/yarl/_query.py", line 97, in get_str_query
+    return get_str_query_from_sequence_iterable(query.items())
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/gordon/git/otter-maroon/.venv/lib/python3.12/site-packages/yarl/_query.py", line 51, in get_str_query_from_sequence_iterable
+    f"{quoter(k)}={quoter(v if type(v) is str else query_var(v))}"
+                                                   ^^^^^^^^^^^^
+  File "/Users/gordon/git/otter-maroon/.venv/lib/python3.12/site-packages/yarl/_query.py", line 33, in query_var
+    raise TypeError(
+TypeError: Invalid variable type: value should be str, int or float, got None of type <class 'NoneType'>

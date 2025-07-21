@@ -1,0 +1,12 @@
+[project]
+name = "otter-maroon"
+version = "0.1.0"
+description = "Sample horoscope news agent"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "aiohttp>=3.12.13",
+    "logfire>=3.22.0",
+    "pydantic-ai-slim[duckduckgo,logfire,openai]>=0.3.6",
+    "pydantic-ai[examples]>=0.3.6",
+]

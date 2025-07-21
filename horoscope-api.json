@@ -1,0 +1,129 @@
+{
+    "swagger": "2.0",
+    "basePath": "/api/v1",
+    "paths": {
+        "/get-horoscope/daily": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                },
+                "operationId": "get_daily_horoscope_api",
+                "parameters": [
+                    {
+                        "name": "sign",
+                        "in": "query",
+                        "type": "string",
+                        "required": true,
+                        "description": "Accepted values: Aries, Taurus, Gemini, Cancer, Leo, Virgo, Libra, Scorpio, Sagittarius, Capricorn, Aquarius, Pisces"
+                    },
+                    {
+                        "name": "day",
+                        "in": "query",
+                        "type": "string",
+                        "description": "Accepted values: Date in format (YYYY-MM-DD) OR \"TODAY\" OR \"TOMORROW\" OR \"YESTERDAY\".",
+                        "default": "TODAY"
+                    }
+                ],
+                "tags": [
+                    "/"
+                ]
+            }
+        },
+        "/get-horoscope/monthly": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                },
+                "operationId": "get_monthly_horoscope_api",
+                "parameters": [
+                    {
+                        "name": "sign",
+                        "in": "query",
+                        "type": "string",
+                        "required": true,
+                        "description": "Accepted values: Aries, Taurus, Gemini, Cancer, Leo, Virgo, Libra, Scorpio, Sagittarius, Capricorn, Aquarius, Pisces"
+                    }
+                ],
+                "tags": [
+                    "/"
+                ]
+            }
+        },
+        "/get-horoscope/weekly": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                },
+                "operationId": "get_weekly_horoscope_api",
+                "parameters": [
+                    {
+                        "name": "sign",
+                        "in": "query",
+                        "type": "string",
+                        "required": true,
+                        "description": "Accepted values: Aries, Taurus, Gemini, Cancer, Leo, Virgo, Libra, Scorpio, Sagittarius, Capricorn, Aquarius, Pisces"
+                    }
+                ],
+                "tags": [
+                    "/"
+                ]
+            }
+        },
+        "/healthcheck": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                },
+                "operationId": "get_health_check_api",
+                "tags": [
+                    ""
+                ]
+            }
+        }
+    },
+    "info": {
+        "title": "Horoscope API",
+        "version": "2.0.3",
+        "description": "The Horoscope API offers a versatile solution for accessing daily, weekly, and monthly horoscope predictions tailored to each zodiac sign. With intuitive endpoints and a straightforward interface, developers can seamlessly integrate astrological insights into their applications. Whether providing users with daily guidance, weekly trends, or monthly forecasts, this API delivers accurate and personalized horoscope data in JSON format. Built on reliable infrastructure, the API ensures scalability and reliability, enabling it to handle varying levels of demand with minimal downtime. With customizable parameters, developers can fine-tune requests to meet specific requirements, enhancing user experiences with tailored astrological content. Comprehensive documentation accompanies the API, providing developers with all the information needed to integrate horoscope data seamlessly. Start leveraging the Horoscope API today to empower users with personalized astrological insights that resonate with their individual zodiac signs and life experiences.",
+        "contact": {
+            "name": "Ashutosh Krishna",
+            "email": "ashutoshbritish@gmail.com",
+            "url": "https://ashutoshkrris.in"
+        },
+        "license": {
+            "name": "MIT"
+        }
+    },
+    "produces": [
+        "application/json"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "tags": [
+        {
+            "name": "/",
+            "description": "Horoscope APIs"
+        },
+        {
+            "name": "",
+            "description": "Health Check API"
+        }
+    ],
+    "responses": {
+        "ParseError": {
+            "description": "When a mask can't be parsed"
+        },
+        "MaskError": {
+            "description": "When any error occurs on mask"
+        }
+    }
+}
