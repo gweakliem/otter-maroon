@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AstroBias: Personalized Horoscope News</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-900 font-sans">
+  <div class="max-w-2xl mx-auto p-6 bg-white shadow-md mt-10 rounded">
+    <h1 class="text-3xl font-bold mb-6 text-center text-indigo-700">🪐 AstroBias Daily</h1>
+
+    <form method="post" class="space-y-4">
+      <div>
+        <label for="name" class="block text-sm font-medium">Your Name:</label>
+        <input type="text" name="name" required class="w-full mt-1 p-2 border border-gray-300 rounded shadow-sm focus:ring focus:ring-indigo-200">
+      </div>
+
+      <div>
+        <label for="star_sign" class="block text-sm font-medium">Your Star Sign:</label>
+        <select name="star_sign" required class="w-full mt-1 p-2 border border-gray-300 rounded shadow-sm">
+          {% for sign in ['Aries','Taurus','Gemini','Cancer','Leo','Virgo','Libra','Scorpio','Sagittarius','Capricorn','Aquarius','Pisces'] %}
+            <option value="{{ sign }}">{{ sign }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div>
+        <button type="submit" class="w-full bg-indigo-600 text-white py-2 px-4 rounded hover:bg-indigo-700 transition">🔮 Get Your Personalized News</button>
+      </div>
+    </form>
+
+    {% if output %}
+      <div class="mt-10">
+        <h2 class="text-xl font-semibold text-indigo-600">{{ output.header }}</h2>
+        <p class="mt-2 italic text-gray-700">Horoscope: {{ output.horoscope }}</p>
+
+        <ul class="mt-6 space-y-4">
+          {% for article in output.articles %}
+            <li class="p-4 border rounded bg-gray-50 shadow-sm">
+              <a href="{{ article.url }}" target="_blank" class="text-lg font-medium text-blue-600 hover:underline">
+                {{ article.title }}
+              </a>
+              <p class="mt-1 text-sm text-gray-600">{{ article.summary }}</p>
+              {% if article.published_at %}
+                <p class="text-xs text-gray-400 mt-2">Published: {{ article.published_at }}</p>
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% elif error %}
+      <p class="mt-6 text-red-600 font-semibold">{{ error }}</p>
+    {% endif %}
+  </div>
+</body>
+</html>

@@ -14,8 +14,14 @@ uv sync
 
 ## Usage
 
+Command Line:
 ```bash
 uv run horoscope.py
+```
+
+Web app:
+```
+uv run uvicorn main:app --reload
 ```
 
 ## Dependencies
