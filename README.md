@@ -23,6 +23,7 @@ uv run horoscope.py
 Horoscope API: https://horoscope-app-api.vercel.app/ h/t [Ashutosh Krishna](https://ashutoshkrris.in/)
 
 Some possibilities for News APIs:
-newsapi.org
-newsdata.io
-https://github.com/unclecode/crawl4ai
+
+- newsapi.org
+- newsdata.io
+- https://github.com/unclecode/crawl4ai

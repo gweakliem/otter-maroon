@@ -18,12 +18,19 @@ load_dotenv()  # Load .env variables
 NEWSAPI_KEY = os.getenv("NEWSAPI_ORG_KEY")
 logfire.configure(token=os.getenv("LOGFIRE_TOKEN"))
 
+# TODO: move config elsewhere
+# 'if-token-present' means nothing will be sent if logfire isn't configured
+logfire.configure(send_to_logfire="if-token-present")
+logfire.instrument_pydantic_ai()
 
-@dataclass
-class Inputs:
-    # name: Optional[str]
+
+class Inputs(BaseModel):
+    name: str  # Optional[str]
     star_sign: str
     # date: Optional[date]
+
+    def __str__(self):
+        return f"Create a personalized newspaper for {self.name}, whose Zodiac sign is {self.star_sign}."
 
 
 class HoroscopeData(BaseModel):
@@ -54,6 +61,7 @@ class PersonalizedNewspaper(BaseModel):
 
 from pydantic_ai import Agent
 from textwrap import dedent
+import click
 
 
 horoscope_agent = Agent(
@@ -73,7 +81,7 @@ star_news_agent = Agent(
 
         - Use the `todays_horoscope` tool to get the horoscope for the given sign.
         - Use the `get_news` tool to gather general or entertainment-related news.
-        - Reframe each news item subtly through the lens of the user's sign or horoscope.
+        - Reframe each news item subtly through the lens of the classic characteristics user's zodiac sign or their daily horoscope.
         - Use an engaging and personal tone, as if writing to the individual.
         - The final result should include:
             • A brief personalized header
@@ -103,8 +111,6 @@ async def todays_horoscope(ctx: RunContext[Horoscope], sign: str) -> str:
                 )
             else:
                 return "Failed to retrieve horoscope."
-
-
 
 
 @star_news_agent.tool
@@ -142,8 +148,26 @@ async def get_news(
                 return []  # Return an empty list if the request fails
 
 
+# Example usage
 # horoscope_result = horoscope_agent.run_sync("What is the horoscope for Cancer today?")
 # print(horoscope_result.output.data.horoscope_data)
+# TODO: rearchitect along these lines https://ai.pydantic.dev/examples/weather-agent/#example-code
+# logfire.instrument_httpx(client, capture_all=True)
+@click.command()
+@click.option(
+    "--star-sign", required=True, help="Your star sign (e.g. Cancer, Leo, etc.)"
+)
+@click.option("--name", required=True, help="Your name")
+def main(star_sign, name):
+    inputs = Inputs(star_sign=star_sign, name=name)
+    result = star_news_agent.run_sync(str(inputs), deps=inputs)
+    if result.output is not None:
+        print(result.output)
+    else:
+        print("Failed to create personalized newspaper.")
+        if hasattr(result, "model_errors"):
+            for error in result.model_errors:
+                print(f"- {error}")
 
-newspaper = star_news_agent.run_sync("Create a personalized newspaper for Cancer.")
-print(newspaper.output)
+if __name__ == "__main__":
+    main()
