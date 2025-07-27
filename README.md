@@ -16,12 +16,12 @@ uv sync
 
 Command Line:
 ```bash
-uv run horoscope.py
+uv run src/horoscope.py
 ```
 
 Web app:
 ```
-uv run uvicorn main:app --reload
+uv run uvicorn src.main:app --reload
 ```
 
 ## Dependencies
