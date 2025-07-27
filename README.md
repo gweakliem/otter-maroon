@@ -33,3 +33,10 @@ Some possibilities for News APIs:
 - newsapi.org
 - newsdata.io
 - https://github.com/unclecode/crawl4ai
+
+## TODOs
+
+1. Add caching for the news, we don't need to load every time
+2. Add caching for horoscopes, they update only once a day
+3. Cache results for overall requests (Name + Zodiac) to avoid hitting LLM.
+4. Make code switchable to different LLMs besides OpenAI

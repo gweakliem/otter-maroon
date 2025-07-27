@@ -12,14 +12,14 @@
     <form method="post" class="space-y-4">
       <div>
         <label for="name" class="block text-sm font-medium">Your Name:</label>
-        <input type="text" name="name" required class="w-full mt-1 p-2 border border-gray-300 rounded shadow-sm focus:ring focus:ring-indigo-200">
+        <input type="text" name="name" required class="w-full mt-1 p-2 border border-gray-300 rounded shadow-sm focus:ring focus:ring-indigo-200" value="{{ name }}">
       </div>
 
       <div>
         <label for="star_sign" class="block text-sm font-medium">Your Star Sign:</label>
         <select name="star_sign" required class="w-full mt-1 p-2 border border-gray-300 rounded shadow-sm">
           {% for sign in ['Aries','Taurus','Gemini','Cancer','Leo','Virgo','Libra','Scorpio','Sagittarius','Capricorn','Aquarius','Pisces'] %}
-            <option value="{{ sign }}">{{ sign }}</option>
+            <option value="{{ sign }}" {% if sign.lower() == star_sign %}selected{% endif %}>{{ sign }}</option>
           {% endfor %}
         </select>
       </div>
@@ -37,10 +37,10 @@
         <ul class="mt-6 space-y-4">
           {% for article in output.articles %}
             <li class="p-4 border rounded bg-gray-50 shadow-sm">
+              <p class="mt-1 text-sm text-gray-600">{{ article.summary }}</p>
               <a href="{{ article.url }}" target="_blank" class="text-lg font-medium text-blue-600 hover:underline">
                 {{ article.title }}
               </a>
-              <p class="mt-1 text-sm text-gray-600">{{ article.summary }}</p>
               {% if article.published_at %}
                 <p class="text-xs text-gray-400 mt-2">Published: {{ article.published_at }}</p>
               {% endif %}

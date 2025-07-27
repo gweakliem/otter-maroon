@@ -21,7 +21,13 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 
 @app.get("/", response_class=HTMLResponse)
 async def form_get(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request})
+    return templates.TemplateResponse("index.html", {
+        "request": request,
+        "name": "",
+        "star_sign": "",
+        "output": None,
+        "error": None
+    })
 
 @app.post("/", response_class=HTMLResponse)
 async def form_post(request: Request, name: str = Form(...), star_sign: str = Form(...)):
@@ -49,7 +55,7 @@ async def form_post(request: Request, name: str = Form(...), star_sign: str = Fo
     return templates.TemplateResponse("index.html", {
         "request": request,
         "name": name,
-        "star_sign": star_sign,
+        "star_sign": star_sign.lower(),
         "output": result.output,
         "error": None if result.output else "Failed to create personalized newspaper."
     })
