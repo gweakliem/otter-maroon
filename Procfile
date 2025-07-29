@@ -1,1 +1,1 @@
-uv run uvicorn src.main:app
+web: gunicorn --config gunicorn_config.py src.main:app
