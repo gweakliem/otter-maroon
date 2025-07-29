@@ -6,7 +6,7 @@ from fastapi.staticfiles import StaticFiles
 from dataclasses import asdict
 from dotenv import load_dotenv
 
-from .horoscope import star_news_agent, Inputs, PersonalizedNewspaper
+from .horoscope.horoscope import star_news_agent, Inputs, PersonalizedNewspaper
 
 import logfire
 from markupsafe import escape
