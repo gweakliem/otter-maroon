@@ -80,7 +80,7 @@ star_news_agent = Agent(
         Your job is to take a star sign and return a personalized "newspaper" for the day.
 
         - Use the `todays_horoscope` tool to get the horoscope for the given sign.
-        - Use the `get_news` tool to gather general or entertainment-related news.
+        - Use the `get_news` tool to gather entertainment-related news.
         - Reframe each news item subtly through the lens of the classic characteristics user's zodiac sign or their daily horoscope.
         - Use an engaging and personal tone, as if writing to the individual.
         - The final result should include:
@@ -115,13 +115,16 @@ async def todays_horoscope(ctx: RunContext[Horoscope], sign: str) -> str:
 
 @star_news_agent.tool
 async def get_news(
-    ctx: RunContext[Horoscope], category: str = "general", limit: int = 25
+    ctx: RunContext[Horoscope], category: str = "entertainment", limit: int = 25
 ) -> List[dict]:
-    """Returns a list of news articles, each with 'title' and 'summary' keys."""
+    """
+    Returns a list of news articles, each with 'title' and 'summary' keys.
+    category - one of 'business', 'entertainment', 'general', 'health', 'science', 'sports', or 'technology'
+    """
     endpoint = "https://newsapi.org/v2/top-headlines"
     params = {
         "country": "us",
-        category: "entertainment",
+        category: category,
         "apiKey": NEWSAPI_KEY,
         "pageSize": limit,
     }
@@ -148,9 +151,6 @@ async def get_news(
                 return []  # Return an empty list if the request fails
 
 
-# Example usage
-# horoscope_result = horoscope_agent.run_sync("What is the horoscope for Cancer today?")
-# print(horoscope_result.output.data.horoscope_data)
 # TODO: rearchitect along these lines https://ai.pydantic.dev/examples/weather-agent/#example-code
 # logfire.instrument_httpx(client, capture_all=True)
 @click.command()
